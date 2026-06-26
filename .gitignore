@@ -1,0 +1,10 @@
+_private/
+.cursor/
+.venv/
+__pycache__/
+*.py[cod]
+*.db
+*.sqlite
+*.sqlite3
+.env
+.flaskenv
