@@ -10,10 +10,23 @@
     <header class="site-header">
       <nav class="container">
         <a class="brand" href="{{ url_for('index') }}">VulnerableNotes</a>
+        <div class="nav-links">
+          {% if session.get("user_id") %}
+            <span>Signed in as {{ session.get("username") }}</span>
+            <a href="{{ url_for('logout') }}">Log out</a>
+          {% else %}
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Log in</a>
+          {% endif %}
+        </div>
       </nav>
     </header>
 
     <main class="container">
+      {% for message in get_flashed_messages() %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+
       {% block content %}{% endblock %}
     </main>
   </body>

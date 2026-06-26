@@ -11,8 +11,24 @@
       understand, and fix common web security vulnerabilities.
     </p>
     <p class="milestone-note">
-      Milestone 1 status: basic Flask scaffold only. Registration, login,
-      notes, database logic, and vulnerabilities have not been added yet.
+      Milestone 2 status: registration and login are available. Notes features
+      and vulnerability demonstrations have not been added yet.
     </p>
+
+    {% if session.get("user_id") %}
+      <p>
+        You are logged in as <strong>{{ session.get("username") }}</strong>.
+        Notes will be added in the next milestone.
+      </p>
+    {% else %}
+      <p>
+        Start by creating a local test account, then log in to see the session
+        state change.
+      </p>
+      <p class="button-row">
+        <a class="button" href="{{ url_for('register') }}">Register</a>
+        <a class="button secondary" href="{{ url_for('login') }}">Log in</a>
+      </p>
+    {% endif %}
   </section>
 {% endblock %}

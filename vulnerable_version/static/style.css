@@ -21,6 +21,13 @@ body {
   padding: 1rem 0;
 }
 
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .brand {
   color: #ffffff;
   font-size: 1.25rem;
@@ -28,7 +35,18 @@ body {
   text-decoration: none;
 }
 
-.hero {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: #ffffff;
+}
+
+.hero,
+.card {
   margin-top: 3rem;
   padding: 2rem;
   background: #ffffff;
@@ -55,4 +73,54 @@ body {
   background: #e8f0fe;
   border-left: 4px solid #3367d6;
   border-radius: 6px;
+}
+
+.flash-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #fff4d6;
+  border-left: 4px solid #f4b400;
+  border-radius: 6px;
+}
+
+form {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 420px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font: inherit;
+}
+
+button,
+.button {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: #3367d6;
+  color: #ffffff;
+  font: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button.secondary {
+  background: #52616b;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.75rem;
 }
