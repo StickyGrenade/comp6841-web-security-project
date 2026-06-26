@@ -11,14 +11,19 @@
       understand, and fix common web security vulnerabilities.
     </p>
     <p class="milestone-note">
-      Milestone 2 status: registration and login are available. Notes features
-      and vulnerability demonstrations have not been added yet.
+      Milestone 3 status: registration, login, note creation, note viewing, and
+      note search are available. Vulnerability demonstrations have not been
+      added yet.
     </p>
 
     {% if session.get("user_id") %}
       <p>
         You are logged in as <strong>{{ session.get("username") }}</strong>.
-        Notes will be added in the next milestone.
+        You can now create, view, and search your notes.
+      </p>
+      <p class="button-row">
+        <a class="button" href="{{ url_for('notes') }}">Go to my notes</a>
+        <a class="button secondary" href="{{ url_for('search') }}">Search notes</a>
       </p>
     {% else %}
       <p>

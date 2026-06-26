@@ -15,10 +15,10 @@ Implemented so far:
 - Milestone 1: basic Flask scaffold.
 - Milestone 2: user registration, login, logout, sessions, and a local SQLite
   `users` table.
+- Milestone 3: note creation, note listing, note detail pages, and note search.
 
 Not implemented yet:
 
-- Notes features.
 - SQL injection demonstration.
 - Stored XSS demonstration.
 - Broken access control / IDOR demonstration.
@@ -63,5 +63,8 @@ http://127.0.0.1:5000/
 - Register a local test account.
 - Log in with that account.
 - Confirm the navigation changes to show the logged-in username.
+- Create a note from the My notes page.
+- Open the note detail page.
+- Search for the note by title or body text.
 - Log out and confirm the navigation returns to register/login links.
 - Try registering the same username twice and confirm the app shows an error.

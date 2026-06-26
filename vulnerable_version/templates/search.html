@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Search Notes - VulnerableNotes{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>Search notes</h1>
+    <p>Search your own notes by title or body text.</p>
+
+    <form method="get">
+      <label for="q">Search text</label>
+      <input id="q" name="q" type="text" value="{{ query }}">
+
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Results</h2>
+
+    {% if query and results %}
+      <div class="note-list">
+        {% for note in results %}
+          <article class="note-preview">
+            <h3>
+              <a href="{{ url_for('note_detail', note_id=note['id']) }}">
+                {{ note["title"] }}
+              </a>
+            </h3>
+            <p>{{ note["body"] }}</p>
+            <p class="note-meta">Created {{ note["created_at"] }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% elif query %}
+      <p>No notes matched your search.</p>
+    {% else %}
+      <p>Enter a search term to find matching notes.</p>
+    {% endif %}
+  </section>
+{% endblock %}

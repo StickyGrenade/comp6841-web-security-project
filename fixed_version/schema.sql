@@ -1,0 +1,2 @@
+-- Placeholder for the fixed secure version database schema.
+-- This will be implemented in Milestone 8.

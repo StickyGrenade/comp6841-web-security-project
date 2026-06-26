@@ -39,3 +39,28 @@ Screenshots to capture:
 - Login page.
 - Homepage showing logged-in username.
 - Homepage after logout.
+
+## Milestone 3: Notes Features
+
+Added the core notes functionality for logged-in users. The vulnerable version
+now has a local SQLite `notes` table, a page for creating and listing notes, an
+individual note detail page at `/note/<id>`, and a basic search page for note
+titles and body text.
+
+Manual testing:
+
+- Initialize the database with `flask --app vulnerable_version/app.py init-db`.
+- Register and log in as a local test user.
+- Create a note with a title and body.
+- Confirm the note appears on the My notes page.
+- Open the note detail page.
+- Search for the note by title or body text.
+- Log out and confirm notes pages require login.
+
+Screenshots to capture:
+
+- Empty My notes page.
+- Note creation form.
+- My notes page with at least one saved note.
+- Individual note detail page.
+- Search page with matching results.

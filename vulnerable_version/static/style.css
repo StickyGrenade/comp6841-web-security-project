@@ -93,12 +93,17 @@ label {
   font-weight: bold;
 }
 
-input {
+input,
+textarea {
   width: 100%;
   padding: 0.65rem;
   border: 1px solid #cbd2d9;
   border-radius: 6px;
   font: inherit;
+}
+
+textarea {
+  resize: vertical;
 }
 
 button,
@@ -123,4 +128,32 @@ button,
 .button-row {
   display: flex;
   gap: 0.75rem;
+}
+
+.note-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.note-preview {
+  padding: 1rem;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+}
+
+.note-preview h3 {
+  margin-top: 0;
+}
+
+.note-preview p {
+  margin-bottom: 0.5rem;
+}
+
+.note-meta {
+  color: #52616b;
+  font-size: 0.9rem;
+}
+
+.note-body {
+  white-space: pre-wrap;
 }

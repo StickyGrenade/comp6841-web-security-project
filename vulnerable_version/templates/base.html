@@ -12,6 +12,8 @@
         <a class="brand" href="{{ url_for('index') }}">VulnerableNotes</a>
         <div class="nav-links">
           {% if session.get("user_id") %}
+            <a href="{{ url_for('notes') }}">My notes</a>
+            <a href="{{ url_for('search') }}">Search</a>
             <span>Signed in as {{ session.get("username") }}</span>
             <a href="{{ url_for('logout') }}">Log out</a>
           {% else %}

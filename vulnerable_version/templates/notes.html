@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}My Notes - VulnerableNotes{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>My notes</h1>
+    <p>Create a note with a simple title and body.</p>
+
+    <form method="post">
+      <label for="title">Title</label>
+      <input id="title" name="title" type="text" required>
+
+      <label for="body">Body</label>
+      <textarea id="body" name="body" rows="6" required></textarea>
+
+      <button type="submit">Create note</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Saved notes</h2>
+
+    {% if notes %}
+      <div class="note-list">
+        {% for note in notes %}
+          <article class="note-preview">
+            <h3>
+              <a href="{{ url_for('note_detail', note_id=note['id']) }}">
+                {{ note["title"] }}
+              </a>
+            </h3>
+            <p>{{ note["body"] }}</p>
+            <p class="note-meta">Created {{ note["created_at"] }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No notes yet. Create your first note above.</p>
+    {% endif %}
+  </section>
+{% endblock %}
