@@ -1,5 +1,4 @@
 _private/
-.cursor/
 .venv/
 __pycache__/
 *.py[cod]
