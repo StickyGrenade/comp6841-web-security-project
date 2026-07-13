@@ -214,20 +214,31 @@ def search():
     """Search notes owned by the current user."""
     query = request.args.get("q", "").strip()
     results = []
+    sql_error = None
 
     if query:
-        like_query = f"%{query}%"
-        results = get_db().execute(
-            """
-            SELECT id, title, body, created_at
-            FROM notes
-            WHERE user_id = ? AND (title LIKE ? OR body LIKE ?)
-            ORDER BY created_at DESC
-            """,
-            (session["user_id"], like_query, like_query),
-        ).fetchall()
+        # VULNERABLE: SQL injection demonstration for this local COMP6841 app.
+        # User input is directly inserted into the SQL string instead of using
+        # parameterized placeholders. The fixed version will replace this.
+        unsafe_sql = (
+            "SELECT id, title, body, created_at "
+            "FROM notes "
+            f"WHERE user_id = {session['user_id']} "
+            f"AND (title LIKE '%{query}%' OR body LIKE '%{query}%') "
+            "ORDER BY created_at DESC"
+        )
 
-    return render_template("search.html", query=query, results=results)
+        try:
+            results = get_db().execute(unsafe_sql).fetchall()
+        except sqlite3.Error as error:
+            sql_error = str(error)
+
+    return render_template(
+        "search.html",
+        query=query,
+        results=results,
+        sql_error=sql_error,
+    )
 
 
 if __name__ == "__main__":

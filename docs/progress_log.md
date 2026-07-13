@@ -64,3 +64,29 @@ Screenshots to capture:
 - My notes page with at least one saved note.
 - Individual note detail page.
 - Search page with matching results.
+
+## Milestone 4: SQL Injection Demonstration
+
+Changed the vulnerable version's note search to intentionally use unsafe SQL
+string construction. This creates a local-only SQL injection demonstration for
+COMP6841. The vulnerable code is marked with a `VULNERABLE:` comment, and the
+search page includes a warning that the behaviour is intentional.
+
+Manual testing:
+
+- Initialize the database with `flask --app vulnerable_version/app.py init-db`.
+- Register and log in as a local test user.
+- Create at least one normal note.
+- Run a normal search and confirm it returns expected matching notes.
+- Create or use a second local test user with a different note.
+- Run a local SQL injection demonstration search and confirm the query logic can
+  be changed in the vulnerable version.
+- One local demonstration input for this app is `') OR 1=1 -- `.
+- Keep all testing local to this app.
+
+Screenshots to capture:
+
+- Normal search input and expected result.
+- SQL injection demonstration input.
+- Unexpected or excessive results caused by the vulnerable query.
+- Vulnerable `search()` route code showing the `VULNERABLE:` comment.

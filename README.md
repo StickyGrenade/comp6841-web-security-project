@@ -16,10 +16,10 @@ Implemented so far:
 - Milestone 2: user registration, login, logout, sessions, and a local SQLite
   `users` table.
 - Milestone 3: note creation, note listing, note detail pages, and note search.
+- Milestone 4: local-only SQL injection demonstration in vulnerable note search.
 
 Not implemented yet:
 
-- SQL injection demonstration.
 - Stored XSS demonstration.
 - Broken access control / IDOR demonstration.
 - Fixed secure version.
@@ -66,5 +66,7 @@ http://127.0.0.1:5000/
 - Create a note from the My notes page.
 - Open the note detail page.
 - Search for the note by title or body text.
+- On the vulnerable search page, test the local SQL injection demonstration with
+  a clearly fake test account and notes you created yourself.
 - Log out and confirm the navigation returns to register/login links.
 - Try registering the same username twice and confirm the app shows an error.

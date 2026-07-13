@@ -6,6 +6,10 @@
   <section class="card">
     <h1>Search notes</h1>
     <p>Search your own notes by title or body text.</p>
+    <p class="warning-note">
+      VULNERABLE: This search page intentionally uses unsafe SQL string
+      construction for the local COMP6841 SQL injection demonstration.
+    </p>
 
     <form method="get">
       <label for="q">Search text</label>
@@ -18,7 +22,9 @@
   <section class="card">
     <h2>Results</h2>
 
-    {% if query and results %}
+    {% if sql_error %}
+      <p class="error-message">SQLite error: {{ sql_error }}</p>
+    {% elif query and results %}
       <div class="note-list">
         {% for note in results %}
           <article class="note-preview">
