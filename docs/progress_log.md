@@ -108,6 +108,26 @@ can be read directly.
 Screenshots from this stage belong in
 `docs/screenshots/milestone_07_passwords/`.
 
+## Milestone 8: Fixed Secure Version
+
+After completing the vulnerable version demonstrations, I built a separate fixed
+secure version in `fixed_version/` called SecureNotes. It mirrors the same app
+features but patches each demonstrated issue.
+
+The fixed version uses parameterized SQL for search, normal Jinja escaping for
+note bodies, ownership checks on note detail pages, and Werkzeug password hashing
+for registration and login. It runs on port 5001 so I can compare it with the
+vulnerable version on port 5000.
+
+I retested each exploit against the fixed app. The SQL injection input was
+treated as ordinary search text and returned no unexpected results. The stored
+XSS payload displayed as escaped text on the note detail page. Bob received a
+404 when trying to open Alice's note by ID. Passwords in the fixed database were
+stored as hashes, not readable plaintext.
+
+Screenshots from this stage belong in
+`docs/screenshots/milestone_08_fixed_version/`.
+
 ## Reflection So Far
 
 Building the app in small milestones helped me understand each piece before
@@ -116,4 +136,7 @@ sessions, and SQLite fit together. Once notes were working, it became clearer
 why security issues belong in ordinary application code, not only in separate
 "security tools".
 
-The next planned steps are a fixed secure version and final report preparation.
+Building the fixed version made the before-and-after comparison clearer. Each
+fix was small and targeted, which helped me explain what changed and why.
+
+The next planned step is final report and presentation preparation.

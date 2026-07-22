@@ -1,1 +1,39 @@
-<!-- Placeholder for the fixed version homepage template. -->
+{% extends "base.html" %}
+
+{% block title %}SecureNotes Home{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <p class="eyebrow">COMP6841 Security Engineering Project</p>
+    <h1>SecureNotes</h1>
+    <p>
+      The fixed secure version of the notes app. This version patches SQL
+      injection, stored XSS, broken access control, and plaintext password
+      storage.
+    </p>
+    <p class="milestone-note">
+      Fixed version status: registration, login, note creation, note viewing,
+      and note search use secure defaults for local COMP6841 comparison.
+    </p>
+
+    {% if session.get("user_id") %}
+      <p>
+        You are logged in as <strong>{{ session.get("username") }}</strong>.
+        You can now create, view, and search your notes.
+      </p>
+      <p class="button-row">
+        <a class="button" href="{{ url_for('notes') }}">Go to my notes</a>
+        <a class="button secondary" href="{{ url_for('search') }}">Search notes</a>
+      </p>
+    {% else %}
+      <p>
+        Start by creating a local test account, then log in to see the session
+        state change.
+      </p>
+      <p class="button-row">
+        <a class="button" href="{{ url_for('register') }}">Register</a>
+        <a class="button secondary" href="{{ url_for('login') }}">Log in</a>
+      </p>
+    {% endif %}
+  </section>
+{% endblock %}

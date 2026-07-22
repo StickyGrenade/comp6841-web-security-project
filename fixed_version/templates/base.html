@@ -1,1 +1,35 @@
-<!-- Placeholder for the fixed version base template. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}SecureNotes{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container">
+        <a class="brand" href="{{ url_for('index') }}">SecureNotes</a>
+        <div class="nav-links">
+          {% if session.get("user_id") %}
+            <a href="{{ url_for('notes') }}">My notes</a>
+            <a href="{{ url_for('search') }}">Search</a>
+            <span>Signed in as {{ session.get("username") }}</span>
+            <a href="{{ url_for('logout') }}">Log out</a>
+          {% else %}
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Log in</a>
+          {% endif %}
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      {% for message in get_flashed_messages() %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

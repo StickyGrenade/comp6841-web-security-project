@@ -1,1 +1,27 @@
-<!-- Placeholder for the fixed version registration template. -->
+{% extends "base.html" %}
+
+{% block title %}Register - SecureNotes{% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1>Create an account</h1>
+    <p>
+      Register a local test account for the fixed secure version of
+      SecureNotes.
+    </p>
+    <p class="info-note">
+      FIXED: The vulnerable version stored passwords in plaintext. This version
+      stores password hashes using Werkzeug helpers. Use fake passwords only.
+    </p>
+
+    <form method="post">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+
+      <button type="submit">Register</button>
+    </form>
+  </section>
+{% endblock %}

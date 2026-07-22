@@ -1,1 +1,17 @@
-<!-- Placeholder for the fixed version note detail template. -->
+{% extends "base.html" %}
+
+{% block title %}{{ note["title"] }} - SecureNotes{% endblock %}
+
+{% block content %}
+  <article class="card">
+    <p><a href="{{ url_for('notes') }}">Back to my notes</a></p>
+
+    <h1>{{ note["title"] }}</h1>
+    <p class="note-meta">Created {{ note["created_at"] }}</p>
+    <div class="note-body">
+      {# FIXED: Stored XSS. The vulnerable version used {{ note["body"] | safe }}.
+         Here we use normal Jinja escaping so stored HTML/JS is shown as text. #}
+      <p>{{ note["body"] }}</p>
+    </div>
+  </article>
+{% endblock %}
