@@ -58,6 +58,23 @@ notes that a normal search should not return. That made the impact easy to see.
 Screenshots from this stage belong in
 `docs/screenshots/milestone_04_sql_injection/`.
 
+## Milestone 5: Stored XSS Demonstration
+
+For the second vulnerability demonstration, I changed the note detail template
+so the note body is rendered with Jinja's `| safe` filter instead of normal
+escaping. I marked the unsafe rendering with a `VULNERABLE:` comment and added a
+warning on the note detail page so the intentional behaviour is obvious.
+
+I tested this locally by creating a normal note and confirming the body still
+displayed correctly. I then created a note with a harmless local script payload
+in the body. When I opened that note's detail page, the browser showed an alert
+dialog. On the notes list page, the same payload stayed escaped and did not run.
+That made it clear the stored content became dangerous only when the detail page
+bypassed escaping.
+
+Screenshots from this stage belong in
+`docs/screenshots/milestone_05_stored_xss/`.
+
 ## Reflection So Far
 
 Building the app in small milestones helped me understand each piece before
@@ -66,5 +83,5 @@ sessions, and SQLite fit together. Once notes were working, it became clearer
 why security issues belong in ordinary application code, not only in separate
 "security tools".
 
-The next planned steps are stored XSS, broken access control / IDOR, weak
-password handling, a fixed secure version, and final report preparation.
+The next planned steps are broken access control / IDOR, weak password handling,
+a fixed secure version, and final report preparation.

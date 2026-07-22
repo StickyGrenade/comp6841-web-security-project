@@ -8,8 +8,13 @@
 
     <h1>{{ note["title"] }}</h1>
     <p class="note-meta">Created {{ note["created_at"] }}</p>
+    <p class="warning-note">
+      VULNERABLE: Note body is rendered unsafely on this page for the local
+      COMP6841 stored XSS demonstration.
+    </p>
     <div class="note-body">
-      <p>{{ note["body"] }}</p>
+      {# VULNERABLE: Note body is rendered with |safe so stored HTML/JS runs in the browser. #}
+      <p>{{ note["body"] | safe }}</p>
     </div>
   </article>
 {% endblock %}
