@@ -1,92 +1,70 @@
 # Progress Log
 
+This log records how I built VulnerableNotes for COMP6841. All testing was done
+only against my own local Flask app.
+
 ## Milestone 1: Basic Flask Scaffold
 
-Built the initial Flask scaffold for the vulnerable version of VulnerableNotes.
-The app had one homepage route, a shared Jinja base template, a homepage
-template, and simple CSS.
+I started with the smallest working Flask app. I created a home route, a shared
+Jinja base template, a homepage template, and simple CSS. At this stage the app
+only showed the VulnerableNotes homepage.
 
-Manual testing:
+I set up a virtual environment, installed Flask, ran the app locally, and
+confirmed the homepage loaded at `http://127.0.0.1:5000/`. This gave me a clean
+base before adding accounts, notes, or security demonstrations.
 
-- Confirmed the Flask app could start locally.
-- Confirmed the homepage loaded in the browser.
-
-Screenshots to capture:
-
-- Homepage loading successfully.
-- Terminal showing the local Flask server.
+Screenshots from this stage are in `docs/screenshots/milestone_01_scaffold/`.
 
 ## Milestone 2: User Registration and Login
 
-Added basic account functionality to the vulnerable version. The app now has a
-local SQLite `users` table, registration, login, logout, session-based logged-in
-state, flash messages, and navigation that changes based on whether a user is
-logged in.
+Next I added user accounts. I created a SQLite `users` table, an `init-db`
+command, registration, login, logout, and Flask sessions. The navigation changes
+depending on whether someone is logged in.
 
-Manual testing:
+I tested this by registering a local account, logging in, checking that the
+homepage showed the signed-in username, logging out, and trying to register the
+same username twice. Duplicate registration showed a clear error. I also kept
+passwords in plaintext in the vulnerable version on purpose, with a
+`VULNERABLE:` comment, so I could demonstrate weak password handling later.
 
-- Initialize the database with `flask --app vulnerable_version/app.py init-db`.
-- Register a local test account.
-- Log in with the test account.
-- Confirm the homepage shows the logged-in username.
-- Log out and confirm the register/login links return.
-- Try registering a duplicate username and confirm an error appears.
-
-Screenshots to capture:
-
-- Registration page.
-- Successful registration message or redirect to login.
-- Login page.
-- Homepage showing logged-in username.
-- Homepage after logout.
+Screenshots from this stage are in `docs/screenshots/milestone_02_auth/`.
 
 ## Milestone 3: Notes Features
 
-Added the core notes functionality for logged-in users. The vulnerable version
-now has a local SQLite `notes` table, a page for creating and listing notes, an
-individual note detail page at `/note/<id>`, and a basic search page for note
-titles and body text.
+I then built the normal notes features. I added a `notes` table, a page for
+creating and listing notes, a note detail page at `/note/<id>`, and a search
+page. Logged-out users are redirected to login when they try to open notes
+pages.
 
-Manual testing:
+I tested creating notes, viewing them in the list, opening one note by ID, and
+searching by title or body text. At this point search still used parameterized
+SQL and note content was rendered with normal Jinja escaping. I wanted the
+normal app behaviour working before I introduced intentional vulnerabilities.
 
-- Initialize the database with `flask --app vulnerable_version/app.py init-db`.
-- Register and log in as a local test user.
-- Create a note with a title and body.
-- Confirm the note appears on the My notes page.
-- Open the note detail page.
-- Search for the note by title or body text.
-- Log out and confirm notes pages require login.
-
-Screenshots to capture:
-
-- Empty My notes page.
-- Note creation form.
-- My notes page with at least one saved note.
-- Individual note detail page.
-- Search page with matching results.
+Screenshots from this stage are in `docs/screenshots/milestone_03_notes/`.
 
 ## Milestone 4: SQL Injection Demonstration
 
-Changed the vulnerable version's note search to intentionally use unsafe SQL
-string construction. This creates a local-only SQL injection demonstration for
-COMP6841. The vulnerable code is marked with a `VULNERABLE:` comment, and the
-search page includes a warning that the behaviour is intentional.
+For the first vulnerability demonstration, I changed the note search route so it
+builds SQL with string interpolation instead of placeholders. I marked the
+unsafe code with a `VULNERABLE:` comment and added a warning on the search page
+so the intentional behaviour is obvious.
 
-Manual testing:
+I tested this locally with two fake users, Alice and Bob, each with their own
+note. A normal search as Bob only returned Bob's matching note. When I entered
+`') OR 1=1 -- ` into search, the query logic changed and the results included
+notes that a normal search should not return. That made the impact easy to see.
 
-- Initialize the database with `flask --app vulnerable_version/app.py init-db`.
-- Register and log in as a local test user.
-- Create at least one normal note.
-- Run a normal search and confirm it returns expected matching notes.
-- Create or use a second local test user with a different note.
-- Run a local SQL injection demonstration search and confirm the query logic can
-  be changed in the vulnerable version.
-- One local demonstration input for this app is `') OR 1=1 -- `.
-- Keep all testing local to this app.
+Screenshots from this stage belong in
+`docs/screenshots/milestone_04_sql_injection/`.
 
-Screenshots to capture:
+## Reflection So Far
 
-- Normal search input and expected result.
-- SQL injection demonstration input.
-- Unexpected or excessive results caused by the vulnerable query.
-- Vulnerable `search()` route code showing the `VULNERABLE:` comment.
+Building the app in small milestones helped me understand each piece before
+moving on. The biggest early challenge was learning how Flask routes, templates,
+sessions, and SQLite fit together. Once notes were working, it became clearer
+why security issues belong in ordinary application code, not only in separate
+"security tools".
+
+The next planned steps are stored XSS, broken access control / IDOR, weak
+password handling, a fixed secure version, and final report preparation.

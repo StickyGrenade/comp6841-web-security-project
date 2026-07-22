@@ -1,28 +1,29 @@
 # VulnerableNotes
 
-VulnerableNotes is a small local Flask web application for a UNSW COMP6841
-Security Engineering project. The project will be built incrementally: first as
-a simple notes app, then as an intentionally vulnerable version, and finally as
-a fixed secure version with before/after documentation.
+VulnerableNotes is a small local Flask web application for my UNSW COMP6841
+Security Engineering project. I am building a simple notes app, introducing
+selected vulnerabilities on purpose, demonstrating them safely on my own
+machine, and then fixing them in a separate secure version.
 
-This project is for local educational use only. All testing should be performed
-only against this application running on your own computer.
+This project is for local educational use only. All testing was done against my
+own local application.
 
 ## Current Status
 
-Implemented so far:
+Completed so far:
 
-- Milestone 1: basic Flask scaffold.
-- Milestone 2: user registration, login, logout, sessions, and a local SQLite
-  `users` table.
-- Milestone 3: note creation, note listing, note detail pages, and note search.
-- Milestone 4: local-only SQL injection demonstration in vulnerable note search.
+- Milestone 1: basic Flask scaffold
+- Milestone 2: registration, login, logout, and sessions
+- Milestone 3: create, list, view, and search notes
+- Milestone 4: SQL injection demonstration in note search
 
-Not implemented yet:
+Still to do:
 
-- Stored XSS demonstration.
-- Broken access control / IDOR demonstration.
-- Fixed secure version.
+- Stored XSS demonstration
+- Broken access control / IDOR demonstration
+- Weak password handling demonstration
+- Fixed secure version
+- Final report and presentation polish
 
 ## Setup
 
@@ -57,16 +58,16 @@ Then open:
 http://127.0.0.1:5000/
 ```
 
-## Current Manual Tests
+## What I Tested
 
-- Open the homepage.
-- Register a local test account.
-- Log in with that account.
-- Confirm the navigation changes to show the logged-in username.
-- Create a note from the My notes page.
-- Open the note detail page.
-- Search for the note by title or body text.
-- On the vulnerable search page, test the local SQL injection demonstration with
-  a clearly fake test account and notes you created yourself.
-- Log out and confirm the navigation returns to register/login links.
-- Try registering the same username twice and confirm the app shows an error.
+I tested the local app by registering fake accounts, logging in and out,
+creating notes, viewing note details, and searching notes. For SQL injection, I
+used two local test users and compared a normal search with a crafted local
+search input on `/search`. Details are in `docs/progress_log.md` and
+`docs/vulnerability_writeups/sql_injection.md`.
+
+## Documentation
+
+- `docs/progress_log.md`: development progress and reflections
+- `docs/vulnerability_writeups/`: vulnerability explanations
+- `docs/screenshots/`: evidence screenshots
