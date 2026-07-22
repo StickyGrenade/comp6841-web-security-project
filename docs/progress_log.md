@@ -91,6 +91,23 @@ authorization is not enough.
 Screenshots from this stage belong in
 `docs/screenshots/milestone_06_idor/`.
 
+## Milestone 7: Weak Password Handling Demonstration
+
+For the fourth vulnerability demonstration, I formally showed the plaintext
+password storage that had been present since registration was added. The
+register and login routes already stored and compared passwords as plain text,
+with `VULNERABLE:` comments. I also added a warning on the register page so the
+intentional behaviour is obvious.
+
+I registered a local test account with a fake password, then inspected the
+SQLite database and confirmed the password was stored in readable plaintext. I
+logged in with the same fake password to confirm the vulnerable comparison still
+worked. That made the risk clear: if the database file is leaked, every password
+can be read directly.
+
+Screenshots from this stage belong in
+`docs/screenshots/milestone_07_passwords/`.
+
 ## Reflection So Far
 
 Building the app in small milestones helped me understand each piece before
@@ -99,5 +116,4 @@ sessions, and SQLite fit together. Once notes were working, it became clearer
 why security issues belong in ordinary application code, not only in separate
 "security tools".
 
-The next planned steps are weak password handling, a fixed secure version, and
-final report preparation.
+The next planned steps are a fixed secure version and final report preparation.
