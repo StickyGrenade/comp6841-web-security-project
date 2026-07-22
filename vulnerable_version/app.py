@@ -192,14 +192,18 @@ def notes():
 @app.route("/note/<int:note_id>")
 @login_required
 def note_detail(note_id):
-    """Show one note owned by the current user."""
+    """Show one note by ID for any logged-in user."""
+    # VULNERABLE: Broken access control / IDOR demonstration for this local
+    # COMP6841 app. The route checks that the visitor is logged in, but does
+    # not check that the note belongs to the current user. Changing the note
+    # ID in the URL can expose another user's note.
     note = get_db().execute(
         """
         SELECT id, title, body, created_at
         FROM notes
-        WHERE id = ? AND user_id = ?
+        WHERE id = ?
         """,
-        (note_id, session["user_id"]),
+        (note_id,),
     ).fetchone()
 
     if note is None:

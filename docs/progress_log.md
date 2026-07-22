@@ -75,6 +75,22 @@ bypassed escaping.
 Screenshots from this stage belong in
 `docs/screenshots/milestone_05_stored_xss/`.
 
+## Milestone 6: Broken Access Control / IDOR Demonstration
+
+For the third vulnerability demonstration, I changed the note detail route so it
+checks that a visitor is logged in, but does not check note ownership. The route
+looks up a note by ID only. I marked the missing ownership check with a
+`VULNERABLE:` comment and added a warning on the note detail page.
+
+I tested this locally with two fake users, Alice and Bob, each with their own
+note. While logged in as Bob, I changed the note ID in the URL to Alice's note.
+The vulnerable app displayed Alice's private note. Logged-out visitors were
+still redirected to login, which made the lesson clear: authentication without
+authorization is not enough.
+
+Screenshots from this stage belong in
+`docs/screenshots/milestone_06_idor/`.
+
 ## Reflection So Far
 
 Building the app in small milestones helped me understand each piece before
@@ -83,5 +99,5 @@ sessions, and SQLite fit together. Once notes were working, it became clearer
 why security issues belong in ordinary application code, not only in separate
 "security tools".
 
-The next planned steps are broken access control / IDOR, weak password handling,
-a fixed secure version, and final report preparation.
+The next planned steps are weak password handling, a fixed secure version, and
+final report preparation.

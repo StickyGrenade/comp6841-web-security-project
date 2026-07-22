@@ -12,6 +12,10 @@
       VULNERABLE: Note body is rendered unsafely on this page for the local
       COMP6841 stored XSS demonstration.
     </p>
+    <p class="warning-note">
+      VULNERABLE: This page checks login but not note ownership. Changing the
+      note ID in the URL can expose another user's note (IDOR demo).
+    </p>
     <div class="note-body">
       {# VULNERABLE: Note body is rendered with |safe so stored HTML/JS runs in the browser. #}
       <p>{{ note["body"] | safe }}</p>
